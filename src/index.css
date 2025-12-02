@@ -1,0 +1,215 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* SAVIER Color Palette */
+    --background: 40 14% 98%; /* #FAFAF7 warm white */
+    --foreground: 0 0% 15%; /* #262626 graphite */
+    
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 15%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 15%;
+    
+    /* Primary - Terracotta Red */
+    --primary: 5 56% 52%; /* #C44A3D */
+    --primary-foreground: 0 0% 100%;
+    
+    /* Secondary - Deep Leaf Green */
+    --secondary: 157 40% 31%; /* #2F6E58 */
+    --secondary-foreground: 0 0% 100%;
+    
+    /* Accent - Honey Yellow */
+    --accent: 39 86% 68%; /* #F4C46A */
+    --accent-foreground: 0 0% 10%;
+    
+    /* Muted - Sand */
+    --muted: 40 20% 90%; /* #E9E5DA */
+    --muted-foreground: 0 0% 44%; /* #6F6F6F */
+    
+    /* Success - Lime Green */
+    --success: 135 38% 68%; /* #8BCB93 */
+    --success-foreground: 0 0% 10%;
+    
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 40 20% 90%;
+    --input: 40 20% 90%;
+    --ring: 5 56% 52%;
+    
+    --radius: 1rem;
+    
+    /* Custom SAVIER tokens */
+    --savier-warm-white: 40 14% 98%;
+    --savier-sand: 40 20% 90%;
+    --savier-deep-black: 0 0% 10%;
+    --savier-terracotta: 5 56% 52%;
+    --savier-honey: 39 86% 68%;
+    --savier-green-deep: 157 40% 31%;
+    --savier-green-light: 135 38% 68%;
+    --savier-graphite: 0 0% 15%;
+    --savier-slate: 0 0% 44%;
+    
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(40 14% 98%) 0%, hsl(40 20% 90%) 100%);
+    --gradient-dark: linear-gradient(135deg, hsl(0 0% 10%) 0%, hsl(0 0% 6%) 100%);
+    --gradient-green: linear-gradient(135deg, hsl(157 40% 31%) 0%, hsl(157 50% 22%) 100%);
+    --gradient-cta: linear-gradient(135deg, hsl(5 56% 52%) 0%, hsl(5 56% 42%) 100%);
+    
+    /* Shadows */
+    --shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.06);
+    --shadow-medium: 0 8px 32px rgba(0, 0, 0, 0.1);
+    --shadow-strong: 0 12px 48px rgba(0, 0, 0, 0.15);
+    --shadow-primary: 0 12px 40px rgba(196, 74, 61, 0.3);
+    --shadow-secondary: 0 12px 40px rgba(47, 110, 88, 0.3);
+    --shadow-accent: 0 8px 24px rgba(244, 196, 106, 0.4);
+    
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 0 0% 10%;
+    --foreground: 40 14% 98%;
+    --card: 0 0% 12%;
+    --card-foreground: 40 14% 98%;
+    --popover: 0 0% 12%;
+    --popover-foreground: 40 14% 98%;
+    --primary: 5 56% 52%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 157 40% 31%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 0 0% 18%;
+    --muted-foreground: 40 20% 70%;
+    --accent: 39 86% 68%;
+    --accent-foreground: 0 0% 10%;
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 5 56% 52%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+  }
+}
+
+@layer components {
+  /* Glass morphism effects */
+  .glass {
+    @apply bg-white/70 backdrop-blur-xl border border-white/20;
+  }
+  
+  .glass-dark {
+    @apply bg-black/70 backdrop-blur-xl border border-white/10;
+  }
+  
+  /* Custom scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-muted rounded-full;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-muted-foreground/30 rounded-full hover:bg-muted-foreground/50;
+  }
+  
+  /* Text gradient */
+  .text-gradient-primary {
+    @apply bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent;
+  }
+  
+  /* Animated underline */
+  .animated-underline {
+    @apply relative inline-block;
+  }
+  
+  .animated-underline::after {
+    content: '';
+    @apply absolute w-full scale-x-0 h-0.5 bottom-0 left-0 bg-primary origin-bottom-right transition-transform duration-300;
+  }
+  
+  .animated-underline:hover::after {
+    @apply scale-x-100 origin-bottom-left;
+  }
+  
+  /* Bebas Neue for numbers */
+  .font-bebas {
+    font-family: 'Bebas Neue', sans-serif;
+  }
+}
+
+@layer utilities {
+  /* Float animation */
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+  
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  .animate-float-delayed {
+    animation: float 3s ease-in-out infinite;
+    animation-delay: 1.5s;
+  }
+  
+  /* Pulse glow */
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 20px rgba(196, 74, 61, 0.4); }
+    50% { box-shadow: 0 0 40px rgba(196, 74, 61, 0.6); }
+  }
+  
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+  
+  /* Counter animation helper */
+  @keyframes count-up {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .animate-count {
+    animation: count-up 0.6s ease-out forwards;
+  }
+  
+  /* Gradient backgrounds */
+  .bg-gradient-hero {
+    background: linear-gradient(135deg, hsl(40 14% 98%) 0%, hsl(40 20% 90%) 100%);
+  }
+  
+  .bg-gradient-dark {
+    background: linear-gradient(135deg, hsl(0 0% 10%) 0%, hsl(0 0% 6%) 100%);
+  }
+  
+  .bg-gradient-green {
+    background: linear-gradient(135deg, hsl(157 40% 31%) 0%, hsl(157 50% 22%) 100%);
+  }
+}
