@@ -91,7 +91,7 @@ const HeroImageCarousel = () => {
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8, ease: 'easeOut' }}
         >
-          <img src={panaderiaarte} alt="SAVIER" className="h-8 w-auto" />
+          <img src={panaderiaarte} alt="panaderia artesanal" className="h-8 w-auto" />
           <div>
             <p className="font-semibold text-foreground text-sm">Panadería Artesanal</p>
             <div className="flex items-center gap-1">
