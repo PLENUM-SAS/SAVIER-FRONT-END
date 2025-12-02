@@ -1,7 +1,6 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
-import { Store, Package, ShoppingCart, Minus, Plus } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { Store, Package, MapPin } from 'lucide-react';
 
 interface ProductCardProps {
   image: string;
@@ -22,15 +21,14 @@ const ProductCard = ({
   originalPrice,
   stock,
 }: ProductCardProps) => {
-  const [quantity, setQuantity] = useState(1);
   const [isHovered, setIsHovered] = useState(false);
 
   const discountedPrice = originalPrice * (1 - discount / 100);
 
   const formatPrice = (price: number) => {
-    return new Intl.NumberFormat("es-CO", {
-      style: "currency",
-      currency: "COP",
+    return new Intl.NumberFormat('es-CO', {
+      style: 'currency',
+      currency: 'COP',
       minimumFractionDigits: 0,
     }).format(price);
   };
@@ -60,7 +58,7 @@ const ProductCard = ({
           </span>
         </div>
 
-        {/* Hover Overlay */}
+        {/* Hover Overlay → solo visual */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: isHovered ? 1 : 0 }}
@@ -69,7 +67,7 @@ const ProductCard = ({
           <h3 className="font-heading text-xl font-bold text-background mb-2 line-clamp-2">
             {name}
           </h3>
-          
+
           <div className="flex items-center gap-2 text-muted mb-2">
             <Store className="h-4 w-4" />
             <span className="text-sm">{commerce}</span>
@@ -89,35 +87,10 @@ const ProductCard = ({
             </span>
           </div>
 
-          {/* Quantity Selector & Add Button */}
-          <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2">
-              <button
-                onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                disabled={quantity <= 1}
-                className="w-9 h-9 rounded-lg border-2 border-background/20 bg-background/10 text-background flex items-center justify-center hover:bg-background/20 disabled:opacity-30 transition-colors"
-              >
-                <Minus className="h-4 w-4" />
-              </button>
-              <span className="w-10 text-center font-bold text-lg text-background">
-                {quantity}
-              </span>
-              <button
-                onClick={() => setQuantity(Math.min(stock, quantity + 1))}
-                disabled={quantity >= stock}
-                className="w-9 h-9 rounded-lg border-2 border-background/20 bg-background/10 text-background flex items-center justify-center hover:bg-background/20 disabled:opacity-30 transition-colors"
-              >
-                <Plus className="h-4 w-4" />
-              </button>
-            </div>
-            <Button
-              variant="default"
-              className="flex-1 h-9 rounded-lg"
-              onClick={() => console.log(`Added ${quantity} of ${name}`)}
-            >
-              <ShoppingCart className="h-4 w-4" />
-              Agregar
-            </Button>
+          {/* 🔍 Solo visual: ubicación */}
+          <div className="flex items-center gap-2 text-accent mt-3">
+            <MapPin className="h-4 w-4" />
+            <span className="text-sm">Disponible en {commerce}</span>
           </div>
         </motion.div>
       </div>

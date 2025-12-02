@@ -1,9 +1,8 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Play, Clock, Star, Package } from "lucide-react";
+import { ArrowRight, Play, Clock, Star } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import heroImage from "@/assets/hero-bread.jpg";
-import fruitsImage from "@/assets/fresh-fruits.jpg";
+import HeroImageCarousel from './HeroImageCarousel';
 
 const HeroSection = () => {
   const stats = [
@@ -16,7 +15,7 @@ const HeroSection = () => {
     <section className="relative min-h-screen pt-20 overflow-hidden bg-gradient-hero">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-12 lg:py-24">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
-          {/* Left Column - Content */}
+          {/* Left Column - Content (sin cambios) */}
           <div className="space-y-8 lg:space-y-10">
             {/* Pre-headline */}
             <motion.div
@@ -98,84 +97,15 @@ const HeroSection = () => {
             </motion.div>
           </div>
 
-          {/* Right Column - Images */}
-          <div className="relative h-[500px] lg:h-[650px]">
-            {/* Main Image */}
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="absolute right-0 top-8 w-[85%] h-[75%] z-10"
-            >
-              <img
-                src={heroImage}
-                alt="Productos frescos de panadería"
-                className="w-full h-full object-cover rounded-3xl shadow-strong"
-              />
-              {/* Discount Badge */}
-              <motion.div
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ duration: 0.5, delay: 1.2, type: "spring" }}
-                className="absolute -top-4 -right-4 w-20 h-20 rounded-full bg-accent flex items-center justify-center shadow-accent"
-              >
-                <span className="font-bebas text-2xl text-accent-foreground">-65%</span>
-              </motion.div>
-            </motion.div>
-
-            {/* Secondary Image */}
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 0.8, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              className="absolute left-0 top-20 w-[55%] h-[55%] -z-0"
-            >
-              <img
-                src={fruitsImage}
-                alt="Frutas frescas"
-                className="w-full h-full object-cover rounded-3xl opacity-70"
-              />
-            </motion.div>
-
-            {/* Floating Card - Disponible ahora */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 1.4 }}
-              className="absolute bottom-24 left-4 glass rounded-2xl px-5 py-4 shadow-medium animate-float"
-            >
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                  <Clock className="h-5 w-5 text-primary" />
-                </div>
-                <div>
-                  <p className="font-semibold text-foreground text-sm">Últimas 5 unidades</p>
-                  <p className="text-xs text-muted-foreground">Disponible ahora</p>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Floating Card - Comercio */}
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 1.6 }}
-              className="absolute top-4 left-[35%] glass rounded-2xl px-5 py-4 shadow-medium animate-float-delayed"
-            >
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center text-secondary-foreground font-bold">
-                  PA
-                </div>
-                <div>
-                  <p className="font-semibold text-foreground text-sm">Panadería Artesanal</p>
-                  <div className="flex items-center gap-1">
-                    <Star className="h-3 w-3 fill-accent text-accent" />
-                    <span className="text-xs text-muted-foreground">4.8</span>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
+          {/* Right Column - Carrusel espectacular con textos flotantes */}
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="relative w-full h-[500px] lg:h-[650px]"
+          >
+            <HeroImageCarousel />
+          </motion.div>
         </div>
       </div>
     </section>
