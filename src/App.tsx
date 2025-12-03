@@ -12,6 +12,7 @@ import CommerceLogin from "./pages/CommerceLogin";
 import CommerceRegister from "./pages/CommerceRegister";
 import NotFound from "./pages/NotFound";
 import HowWeWorkPage from '@/pages/HowWeWorkPage';
+import ForCommerceInfo from './pages/ForCommerceInfo';
 
 const queryClient = new QueryClient();
 
@@ -31,6 +32,7 @@ const App = () => (
               <Route path="/comercios/login" element={<CommerceLogin />} />
               <Route path="/comercios/registro" element={<CommerceRegister />} />
               <Route path="/how-we-work" element={<HowWeWorkPage />} />
+              <Route path="/para-comercios" element={<ForCommerceInfo />} />
               <Route path="*" element={<NotFound />} />
             </Route>
           </Routes>

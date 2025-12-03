@@ -3,28 +3,28 @@ import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ShoppingCart, User, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import logoSavier from '@/assets/isotipo.svg';
+import logoSavier from '@/assets/YELLOW.svg';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const navLinks = [
-    { name: "Inicio", href: "/" },
-    { name: "Productos", href: "/productos" },
-    { name: "Como Funciona", href: "/how-we-work" },
-    { name: "Para comercios", href: "/comercios/login" },
+    { name: 'Inicio', href: '/' },
+    { name: 'Productos', href: '/productos' },
+    { name: 'Cómo Funciona', href: '/how-we-work' },
+    { name: 'Para comercios', href: '/para-comercios' }, // ✅ Cambio clave
   ];
 
   return (
     <motion.nav
-      className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border/50"
+      className="fixed top-0 left-0 right-0 z-50 bg-[#346C53]/80 backdrop-blur-xl border-b border-[#98A499]/50"
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: 'easeOut' }}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          {/* Logo con palpitación sutil */}
+          {/* Logo */}
           <motion.div
             className="flex items-center gap-2"
             animate={{ scale: [1, 1.02, 1] }}
@@ -36,7 +36,7 @@ const Navbar = () => {
                 alt="SAVIER"
                 className="h-12 w-auto drop-shadow-lg"
               />
-              <span className="font-heading text-2xl font-black text-foreground tracking-tight">
+              <span className="font-heading text-2xl font-black text-white tracking-tight">
                 SAVIER
               </span>
             </Link>
@@ -52,10 +52,10 @@ const Navbar = () => {
               >
                 <Link
                   to={link.href}
-                  className="text-muted-foreground hover:text-foreground font-medium relative group"
+                  className="text-[#EEECE8] hover:text-white font-medium relative group"
                 >
                   {link.name}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300" />
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#EBBF68] group-hover:w-full transition-all duration-300" />
                 </Link>
               </motion.div>
             ))}
@@ -67,10 +67,10 @@ const Navbar = () => {
               whileHover={{ scale: 1.1 }}
               transition={{ type: 'spring', stiffness: 400 }}
             >
-              <Button variant="ghost" size="icon" className="relative">
+              <Button variant="ghost" size="icon" className="relative text-[#EEECE8] hover:text-white">
                 <ShoppingCart className="h-5 w-5" />
                 <motion.span
-                  className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center"
+                  className="absolute -top-1 -right-1 bg-[#C55145] text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center"
                   animate={{ scale: [1, 1.2, 1] }}
                   transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
                 >
@@ -84,7 +84,7 @@ const Navbar = () => {
               transition={{ type: 'spring', stiffness: 400 }}
             >
               <Link to="/login">
-                <Button variant="outline" className="group">
+                <Button variant="outline" className="group text-[#EEECE8] border-[#EEECE8] hover:text-white hover:border-white">
                   <User className="h-4 w-4 mr-2" />
                   Iniciar sesión
                 </Button>
@@ -96,7 +96,7 @@ const Navbar = () => {
               transition={{ type: 'spring', stiffness: 400 }}
             >
               <Link to="/registro">
-                <Button className="group">
+                <Button className="group bg-[#EBBF68] text-[#346C53] hover:bg-[#EBBF68]/90">
                   Registrarse
                   <ArrowRight className="h-4 w-4 ml-2 transition-transform group-hover:translate-x-1" />
                 </Button>
@@ -107,7 +107,7 @@ const Navbar = () => {
           {/* Mobile Menu Button */}
           <motion.button
             onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden p-2 text-foreground"
+            className="lg:hidden p-2 text-white"
             whileTap={{ scale: 0.95 }}
           >
             {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -120,9 +120,9 @@ const Navbar = () => {
         {isOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
+            animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-background/95 backdrop-blur-lg border-b border-border"
+            className="lg:hidden bg-[#346C53]/95 backdrop-blur-lg border-t border-[#98A499]/30"
           >
             <div className="px-6 py-4 space-y-4">
               {navLinks.map((link, i) => (
@@ -135,7 +135,7 @@ const Navbar = () => {
                   <Link
                     to={link.href}
                     onClick={() => setIsOpen(false)}
-                    className="block text-foreground font-medium py-2 hover:text-primary transition-colors"
+                    className="block text-[#EEECE8] hover:text-white font-medium py-2 transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -143,19 +143,19 @@ const Navbar = () => {
               ))}
 
               <motion.div
-                className="flex flex-col gap-3 pt-4 border-t border-border"
+                className="flex flex-col gap-3 pt-4 border-t border-[#98A499]/30"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
               >
                 <Link to="/login" onClick={() => setIsOpen(false)}>
-                  <Button variant="outline" className="w-full group">
+                  <Button variant="outline" className="w-full group text-[#EEECE8] border-[#EEECE8] hover:text-white hover:border-white">
                     <User className="h-4 w-4 mr-2" />
                     Iniciar sesión
                   </Button>
                 </Link>
                 <Link to="/registro" onClick={() => setIsOpen(false)}>
-                  <Button className="w-full group">
+                  <Button className="w-full group bg-[#EBBF68] text-[#346C53] hover:bg-[#EBBF68]/90">
                     Registrarse
                     <ArrowRight className="h-4 w-4 ml-2 transition-transform group-hover:translate-x-1" />
                   </Button>
