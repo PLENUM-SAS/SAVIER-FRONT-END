@@ -27,6 +27,7 @@ const App = () => (
             {/* Usa Layout para TODAS las rutas */}
             <Route element={<Layout />}> {/* ⬅️ Navbar siempre visible */}
               <Route path="/" element={<Index />} />
+              <Route path="/productos" element={<Index />} />
               <Route path="/login" element={<Login />} />
               <Route path="/registro" element={<Register />} />
               <Route path="/comercios/login" element={<CommerceLogin />} />

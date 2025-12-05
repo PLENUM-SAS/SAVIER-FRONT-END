@@ -1,5 +1,6 @@
+import { useEffect, useRef } from "react";
 import { Helmet } from "react-helmet-async";
-import Navbar from "@/components/layout/Navbar";
+import { useLocation } from "react-router-dom";
 import Footer from "@/components/layout/Footer";
 import HeroSection from "@/components/home/HeroSection";
 import HowItWorks from "@/components/home/HowItWorks";
@@ -9,6 +10,15 @@ import CTASection from "@/components/home/CTASection";
 import FinalCTA from "@/components/home/FinalCTA";
 
 const Index = () => {
+  const productsRef = useRef<HTMLElement | null>(null);
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname === "/productos" && productsRef.current) {
+      productsRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [location.pathname]);
+
   return (
     <>
       <Helmet>
@@ -21,11 +31,12 @@ const Index = () => {
       </Helmet>
 
       <div className="min-h-screen bg-background">
-        <Navbar />
         <main>
           <HeroSection />
           <HowItWorks />
-          <ProductGallery />
+          <section id="productos" ref={productsRef} className="scroll-mt-32">
+            <ProductGallery />
+          </section>
           <ImpactSection />
           <CTASection />
           <FinalCTA />

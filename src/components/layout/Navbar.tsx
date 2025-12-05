@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, MouseEvent } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ShoppingCart, User, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -7,6 +7,8 @@ import logoSavier from '@/assets/YELLOW.svg';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const navLinks = [
     { name: 'Inicio', href: '/' },
@@ -14,6 +16,24 @@ const Navbar = () => {
     { name: 'Cómo Funciona', href: '/how-we-work' },
     { name: 'Para comercios', href: '/para-comercios' }, // ✅ Cambio clave
   ];
+
+  const scrollToTop = () => {
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  const handleInicioClick = (event: MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    setIsOpen(false);
+
+    if (location.pathname !== '/') {
+      navigate('/');
+      setTimeout(scrollToTop, 75);
+    } else {
+      scrollToTop();
+    }
+  };
 
   return (
     <motion.nav
@@ -29,6 +49,7 @@ const Navbar = () => {
             className="flex items-center gap-2"
             animate={{ scale: [1, 1.02, 1] }}
             transition={{ repeat: Infinity, duration: 4, ease: 'easeInOut' }}
+            whileHover={{ scale: 1.1 }}
           >
             <Link to="/" className="flex items-center gap-2">
               <img
@@ -52,6 +73,7 @@ const Navbar = () => {
               >
                 <Link
                   to={link.href}
+                  onClick={link.href === '/' ? handleInicioClick : undefined}
                   className="text-[#EEECE8] hover:text-white font-medium relative group"
                 >
                   {link.name}
@@ -134,7 +156,13 @@ const Navbar = () => {
                 >
                   <Link
                     to={link.href}
-                    onClick={() => setIsOpen(false)}
+                    onClick={(event) => {
+                      if (link.href === '/') {
+                        handleInicioClick(event);
+                      } else {
+                        setIsOpen(false);
+                      }
+                    }}
                     className="block text-[#EEECE8] hover:text-white font-medium py-2 transition-colors"
                   >
                     {link.name}
