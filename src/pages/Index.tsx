@@ -8,6 +8,8 @@ import ProductGallery from "@/components/home/ProductGallery";
 import ImpactSection from "@/components/home/ImpactSection";
 import CTASection from "@/components/home/CTASection";
 import FinalCTA from "@/components/home/FinalCTA";
+import TrustBadges from "@/components/home/TrustBadges";
+import Testimonials from "@/components/home/Testimonials";
 
 const Index = () => {
   const productsRef = useRef<HTMLElement | null>(null);
@@ -33,11 +35,13 @@ const Index = () => {
       <div className="min-h-screen bg-background">
         <main>
           <HeroSection />
+          <TrustBadges />
           <HowItWorks />
           <section id="productos" ref={productsRef} className="scroll-mt-32">
             <ProductGallery />
           </section>
           <ImpactSection />
+          <Testimonials />
           <CTASection />
           <FinalCTA />
         </main>
@@ -48,3 +52,4 @@ const Index = () => {
 };
 
 export default Index;
+

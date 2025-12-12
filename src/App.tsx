@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import Layout from "@/components/layout/Layout"; // ⬅️ Layout global
+import ScrollProgress from "@/components/ui/scroll-progress";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -22,6 +23,7 @@ const App = () => (
       <TooltipProvider>
         <Toaster />
         <Sonner />
+        <ScrollProgress />
         <BrowserRouter>
           <Routes>
             {/* Usa Layout para TODAS las rutas */}
