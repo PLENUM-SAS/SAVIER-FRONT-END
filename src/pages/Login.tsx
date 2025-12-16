@@ -7,16 +7,31 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import heroImage from "@/assets/hero-bread.jpg";
-import fruitsImage from "@/assets/fresh-fruits.jpg";
-
+import { loginAPI } from "@/services/users";
+type LoginDto = {
+  email: string;
+  password: string;
+};
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    const payload: LoginDto = {
+      email: email,
+      password: password,
+    };
+
+    try {
+      const res = await loginAPI(payload);
+      localStorage.setItem("token", res.token); // ajusta si se llama distinto
+    } catch (error) {
+      console.error("Login failed:", error);
+    }
     console.log("Login attempt:", { email, password, rememberMe });
   };
 
@@ -24,7 +39,10 @@ const Login = () => {
     <>
       <Helmet>
         <title>Iniciar Sesión | SAVIER</title>
-        <meta name="description" content="Inicia sesión en SAVIER para descubrir productos frescos con descuentos increíbles." />
+        <meta
+          name="description"
+          content="Inicia sesión en SAVIER para descubrir productos frescos con descuentos increíbles."
+        />
       </Helmet>
 
       <div className="min-h-screen grid lg:grid-cols-2">
@@ -40,7 +58,10 @@ const Login = () => {
 
           {/* Content */}
           <div className="relative z-10 flex flex-col justify-between p-12 text-background">
-            <Link to="/" className="font-heading text-3xl font-black tracking-tight">
+            <Link
+              to="/"
+              className="font-heading text-3xl font-black tracking-tight"
+            >
               SAVIER
             </Link>
 
@@ -65,7 +86,9 @@ const Login = () => {
                   <p className="text-sm text-muted mt-1">Productos</p>
                 </div>
                 <div className="text-center">
-                  <span className="font-bebas text-4xl text-secondary">320+</span>
+                  <span className="font-bebas text-4xl text-secondary">
+                    320+
+                  </span>
                   <p className="text-sm text-muted mt-1">Comercios</p>
                 </div>
                 <div className="text-center">
@@ -87,7 +110,9 @@ const Login = () => {
           >
             {/* Mobile Logo */}
             <Link to="/" className="lg:hidden block text-center mb-8">
-              <span className="font-heading text-3xl font-black text-foreground">SAVIER</span>
+              <span className="font-heading text-3xl font-black text-foreground">
+                SAVIER
+              </span>
             </Link>
 
             {/* Header */}
@@ -131,7 +156,11 @@ const Login = () => {
                 variant="outline"
                 className="w-full h-14 justify-center gap-3 text-base border-border hover:border-foreground"
               >
-                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                <svg
+                  className="w-5 h-5"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
                   <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
                 </svg>
                 Continuar con Facebook
@@ -153,7 +182,9 @@ const Login = () => {
             {/* Form */}
             <form onSubmit={handleSubmit} className="space-y-5">
               <div className="space-y-2">
-                <label className="text-sm font-semibold text-foreground">Email</label>
+                <label className="text-sm font-semibold text-foreground">
+                  Email
+                </label>
                 <div className="relative">
                   <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                   <Input
@@ -168,7 +199,9 @@ const Login = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-semibold text-foreground">Contraseña</label>
+                <label className="text-sm font-semibold text-foreground">
+                  Contraseña
+                </label>
                 <div className="relative">
                   <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                   <Input
@@ -184,7 +217,11 @@ const Login = () => {
                     onClick={() => setShowPassword(!showPassword)}
                     className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
                   >
-                    {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                    {showPassword ? (
+                      <EyeOff className="h-5 w-5" />
+                    ) : (
+                      <Eye className="h-5 w-5" />
+                    )}
                   </button>
                 </div>
               </div>
@@ -194,13 +231,21 @@ const Login = () => {
                   <Checkbox
                     id="remember"
                     checked={rememberMe}
-                    onCheckedChange={(checked) => setRememberMe(checked as boolean)}
+                    onCheckedChange={(checked) =>
+                      setRememberMe(checked as boolean)
+                    }
                   />
-                  <label htmlFor="remember" className="text-sm text-muted-foreground cursor-pointer">
+                  <label
+                    htmlFor="remember"
+                    className="text-sm text-muted-foreground cursor-pointer"
+                  >
                     Recordarme
                   </label>
                 </div>
-                <Link to="/forgot-password" className="text-sm font-semibold text-secondary hover:underline">
+                <Link
+                  to="/forgot-password"
+                  className="text-sm font-semibold text-secondary hover:underline"
+                >
                   ¿Olvidaste tu contraseña?
                 </Link>
               </div>
@@ -216,7 +261,10 @@ const Login = () => {
             {/* Register Link */}
             <p className="text-center text-muted-foreground">
               ¿No tienes cuenta?{" "}
-              <Link to="/registro" className="font-bold text-primary hover:underline">
+              <Link
+                to="/registro"
+                className="font-bold text-primary hover:underline"
+              >
                 Regístrate gratis
               </Link>
             </p>
