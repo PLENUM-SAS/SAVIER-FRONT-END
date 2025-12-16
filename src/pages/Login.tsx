@@ -7,12 +7,15 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import heroImage from "@/assets/hero-bread.jpg";
-import { loginAPI } from "@/services/users";
+import { useAuth } from "@/context/AuthContext";
+import { useNavigate } from "react-router-dom";
 type LoginDto = {
   email: string;
   password: string;
 };
 const Login = () => {
+  const { login } = useAuth();
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -27,10 +30,11 @@ const Login = () => {
     };
 
     try {
-      const res = await loginAPI(payload);
-      localStorage.setItem("token", res.token); // ajusta si se llama distinto
+      await login(payload);
+      navigate("/"); // Redirect to home after login
     } catch (error) {
       console.error("Login failed:", error);
+      // You might want to set an error state here to show to the user
     }
     console.log("Login attempt:", { email, password, rememberMe });
   };

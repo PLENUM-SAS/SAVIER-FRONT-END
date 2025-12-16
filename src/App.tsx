@@ -14,6 +14,11 @@ import CommerceRegister from "./pages/CommerceRegister";
 import NotFound from "./pages/NotFound";
 import HowWeWorkPage from '@/pages/HowWeWorkPage';
 import ForCommerceInfo from './pages/ForCommerceInfo';
+import RestaurantsPage from "./pages/RestaurantsPage";
+import RestaurantDetailsPage from "./pages/RestaurantDetailsPage";
+import CartPage from "./pages/CartPage";
+import MyOrdersPage from "./pages/MyOrdersPage";
+import Chatbot from "./components/Chatbot";
 
 const queryClient = new QueryClient();
 
@@ -24,6 +29,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <ScrollProgress />
+        <Chatbot />
         <BrowserRouter>
           <Routes>
             {/* Usa Layout para TODAS las rutas */}
@@ -32,6 +38,10 @@ const App = () => (
               <Route path="/productos" element={<Index />} />
               <Route path="/login" element={<Login />} />
               <Route path="/registro" element={<Register />} />
+              <Route path="/restaurantes" element={<RestaurantsPage />} />
+              <Route path="/restaurantes/:id" element={<RestaurantDetailsPage />} />
+              <Route path="/carrito" element={<CartPage />} />
+              <Route path="/mis-pedidos" element={<MyOrdersPage />} />
               <Route path="/comercios/login" element={<CommerceLogin />} />
               <Route path="/comercios/registro" element={<CommerceRegister />} />
               <Route path="/how-we-work" element={<HowWeWorkPage />} />

@@ -1,9 +1,10 @@
 import { useState, useEffect, MouseEvent } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
-import { Menu, X, ShoppingCart, User, ArrowRight, Sparkles } from 'lucide-react';
+import { Menu, X, ShoppingCart, User, ArrowRight, Sparkles, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import logoSavier from '@/assets/YELLOW.svg';
+import { useAuth } from '@/context/AuthContext';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,6 +12,7 @@ const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { scrollY } = useScroll();
+  const { user, logout } = useAuth();
 
   // Transforma la opacidad del fondo según el scroll
   const navBgOpacity = useTransform(scrollY, [0, 100], [0.8, 0.98]);
@@ -176,51 +178,67 @@ const Navbar = () => {
               </Button>
             </motion.div>
 
-            {/* Botón Login con efectos premium */}
-            <motion.div
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-            >
-              <Link to="/login">
+            {/* Botones de Auth o Perfil */}
+            {user ? (
+              <div className="flex items-center gap-4">
+                <span className="text-white/90 font-medium hidden xl:block">Hola, {user.email?.split('@')[0]}</span>
                 <Button
-                  variant="outline"
-                  className="group relative text-white/95 border-white/40 hover:text-white hover:border-white hover:bg-white/10 overflow-hidden transition-all duration-300"
+                  variant="ghost"
+                  onClick={logout}
+                  className="text-white/80 hover:text-white hover:bg-white/10"
                 >
-                  {/* Shine effect mejorado */}
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
-                    initial={{ x: '-200%' }}
-                    whileHover={{ x: '200%' }}
-                    transition={{ duration: 0.8, ease: 'easeInOut' }}
-                  />
-                  <User className="h-4 w-4 mr-2 relative z-10 transition-transform group-hover:scale-110" />
-                  <span className="relative z-10 font-semibold">Iniciar sesión</span>
+                  <LogOut className="h-5 w-5" />
                 </Button>
-              </Link>
-            </motion.div>
+              </div>
+            ) : (
+              <div className="flex items-center gap-4">
+                {/* Botón Login con efectos premium */}
+                <motion.div
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
+                >
+                  <Link to="/login">
+                    <Button
+                      variant="outline"
+                      className="group relative text-white/95 border-white/40 hover:text-white hover:border-white hover:bg-white/10 overflow-hidden transition-all duration-300"
+                    >
+                      {/* Shine effect mejorado */}
+                      <motion.div
+                        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+                        initial={{ x: '-200%' }}
+                        whileHover={{ x: '200%' }}
+                        transition={{ duration: 0.8, ease: 'easeInOut' }}
+                      />
+                      <User className="h-4 w-4 mr-2 relative z-10 transition-transform group-hover:scale-110" />
+                      <span className="relative z-10 font-semibold">Iniciar sesión</span>
+                    </Button>
+                  </Link>
+                </motion.div>
 
-            {/* Botón Registro ultra-premium */}
-            <motion.div
-              whileHover={{ scale: 1.03, y: -2 }}
-              whileTap={{ scale: 0.97 }}
-            >
-              <Link to="/registro">
-                <Button className="group relative bg-gradient-to-r from-[#F4C46A] via-[#EBBF68] to-[#F4C46A] bg-[length:200%] hover:bg-right text-[#346C53] hover:shadow-elevated hover:shadow-[#EBBF68]/40 font-bold overflow-hidden transition-all duration-500">
-                  {/* Animated shine overlay */}
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent"
-                    initial={{ x: '-200%' }}
-                    whileHover={{ x: '200%' }}
-                    transition={{ duration: 0.7, ease: 'easeInOut' }}
-                  />
-                  <span className="relative z-10 flex items-center gap-2">
-                    <Sparkles className="h-4 w-4 transition-transform group-hover:rotate-12" />
-                    Registrarse
-                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-2" />
-                  </span>
-                </Button>
-              </Link>
-            </motion.div>
+                {/* Botón Registro ultra-premium */}
+                <motion.div
+                  whileHover={{ scale: 1.03, y: -2 }}
+                  whileTap={{ scale: 0.97 }}
+                >
+                  <Link to="/registro">
+                    <Button className="group relative bg-gradient-to-r from-[#F4C46A] via-[#EBBF68] to-[#F4C46A] bg-[length:200%] hover:bg-right text-[#346C53] hover:shadow-elevated hover:shadow-[#EBBF68]/40 font-bold overflow-hidden transition-all duration-500">
+                      {/* Animated shine overlay */}
+                      <motion.div
+                        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent"
+                        initial={{ x: '-200%' }}
+                        whileHover={{ x: '200%' }}
+                        transition={{ duration: 0.7, ease: 'easeInOut' }}
+                      />
+                      <span className="relative z-10 flex items-center gap-2">
+                        <Sparkles className="h-4 w-4 transition-transform group-hover:rotate-12" />
+                        Registrarse
+                        <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-2" />
+                      </span>
+                    </Button>
+                  </Link>
+                </motion.div>
+              </div>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -309,22 +327,34 @@ const Navbar = () => {
                 exit={{ opacity: 0, y: 20 }}
                 transition={{ delay: 0.3, duration: 0.4 }}
               >
-                <Link to="/login" onClick={() => setIsOpen(false)}>
+                {user ? (
                   <Button
                     variant="outline"
-                    className="w-full group text-white/95 border-white/40 hover:text-white hover:border-white hover:bg-white/15 transition-all duration-300"
+                    onClick={() => { logout(); setIsOpen(false); }}
+                    className="w-full text-white hover:bg-white/10"
                   >
-                    <User className="h-4 w-4 mr-2 transition-transform group-hover:scale-110" />
-                    Iniciar sesión
+                    Cerrar Sesión
                   </Button>
-                </Link>
-                <Link to="/registro" onClick={() => setIsOpen(false)}>
-                  <Button className="w-full group bg-gradient-to-r from-[#F4C46A] via-[#EBBF68] to-[#F4C46A] text-[#346C53] hover:shadow-elevated hover:shadow-[#EBBF68]/50 font-bold transition-all duration-300">
-                    <Sparkles className="h-4 w-4 mr-2 transition-transform group-hover:rotate-12" />
-                    Registrarse
-                    <ArrowRight className="h-4 w-4 ml-2 transition-transform group-hover:translate-x-2" />
-                  </Button>
-                </Link>
+                ) : (
+                  <>
+                    <Link to="/login" onClick={() => setIsOpen(false)}>
+                      <Button
+                        variant="outline"
+                        className="w-full group text-white/95 border-white/40 hover:text-white hover:border-white hover:bg-white/15 transition-all duration-300"
+                      >
+                        <User className="h-4 w-4 mr-2 transition-transform group-hover:scale-110" />
+                        Iniciar sesión
+                      </Button>
+                    </Link>
+                    <Link to="/registro" onClick={() => setIsOpen(false)}>
+                      <Button className="w-full group bg-gradient-to-r from-[#F4C46A] via-[#EBBF68] to-[#F4C46A] text-[#346C53] hover:shadow-elevated hover:shadow-[#EBBF68]/50 font-bold transition-all duration-300">
+                        <Sparkles className="h-4 w-4 mr-2 transition-transform group-hover:rotate-12" />
+                        Registrarse
+                        <ArrowRight className="h-4 w-4 ml-2 transition-transform group-hover:translate-x-2" />
+                      </Button>
+                    </Link>
+                  </>
+                )}
               </motion.div>
             </div>
           </motion.div>

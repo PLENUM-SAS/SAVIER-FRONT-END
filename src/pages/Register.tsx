@@ -16,7 +16,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import croissantsImg from "@/assets/croissants.jpg";
-import { registerAPI } from "@/services/users";
+import { useAuth } from "@/context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 type RegisterDTO = {
   fullName: string;
@@ -26,6 +27,8 @@ type RegisterDTO = {
 };
 
 const Register = () => {
+  const { register } = useAuth();
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -58,8 +61,9 @@ const Register = () => {
     };
 
     try {
-      const res = await registerAPI(payload);
-      console.log("Registro exitoso:", res.status);
+      await register(payload);
+      // Optionally auto login or ask user to login
+      navigate("/login");
     } catch (error) {
       console.error("Error al registrar:", error);
     }
